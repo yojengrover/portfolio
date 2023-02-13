@@ -1,0 +1,137 @@
+.navbar {
+	height: 80px;
+	width: 100%;
+	background: rgb(255, 255, 255);
+	color: rgb(129, 129, 129);
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+	font-size: 20px;
+    font-weight: 600;
+    text-shadow: #000;
+    padding: 0 30px 0 30px;
+}
+
+nav.navbar {
+    padding: 10px;
+    border-bottom: 1px solid #efefef;
+    justify-content: space-evenly;
+    margin-top: 30px;
+}
+
+.nav-item:hover {
+    color: rgb(79, 223, 196);
+}
+.nav-logo {
+	text-decoration: none;
+    font-size: 20px;
+	color: rgb(129, 129, 129);
+    padding: 0 10px 40px 30px
+}
+
+.nav-logo:hover {
+    color: rgb(79, 223, 196);
+}
+.nav-links {
+	display: grid;
+	grid-template-columns: repeat(4, auto);
+	grid-gap: 60px;
+	list-style: none;
+}
+
+.nav-link {
+	text-decoration: none;
+	color: white;
+	transition: 0.3s all;
+}
+
+.nav-link:hover {
+	color: rgb(79, 223, 196);
+}
+.nav-link-active-red:hover{
+    color: #06BC9B;
+}
+.nav-link-active-red{
+    color: #06BC9B;
+    display: flex;
+    padding-bottom: 5px;
+	justify-content: space-evenly;
+	align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 2px solid #06BC9B;
+    padding: 0 30px 39px 30px;
+    text-decoration: none;
+
+}
+
+a.nav-link {
+    display: flex;
+    color: rgb(129, 129, 129);
+	justify-content: space-evenly;
+	align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 0 30px 0 30px;
+    text-decoration: none;
+}
+
+.nav-links .active {
+    background: rgb(79, 223, 196);
+    border-bottom: 2px solid #06BC9B;
+    left: 0;
+}
+.nav-icon {
+	display: none;
+	font-size: 2rem;
+	cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+	.navbar {
+		position: relative;
+	}
+
+	.nav-links {
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		text-align: center;
+		width: 100%;
+        grid-gap: 40px;
+		top: 80px;
+		left: -100%;
+		transition: 0.5s all;
+        z-index: 100;
+	}
+
+	.nav-links.active {
+		background: rgb(255, 255, 255);
+		left: 0;
+	}
+
+    .nav-link-active-red{
+        color: #06BC9B;
+        display: flex;
+        padding-bottom: 5px;
+        justify-content: space-evenly;
+        align-items: center;
+        font-size: 20px;
+        font-weight: 600;
+        border-bottom: 2px solid #06BC9B;
+        padding: 0px 30px 18px 30px;
+        text-decoration: none;
+    
+    }
+
+
+	.nav-item {
+		padding: 0px 0 5px 0;
+		border-bottom: 1px solid rgb(126, 126, 126);
+	}
+
+	.nav-icon {
+		display: flex;
+        padding-bottom: 40px
+	}
+}

@@ -1,0 +1,48 @@
+.myCards {
+    margin:0px 0px 288px 0px;
+    padding-top: 62px;
+}
+
+.carSpace{
+    margin-bottom: 144px;
+}
+
+.cardBody.card{
+    background-color: rgb(16, 114, 90);
+    color: antiquewhite;
+}
+a.btn.btn-primary {
+    background-color: rgb(16, 114, 90);
+    color: antiquewhite;
+}
+
+.backButton{
+    background-color: rgb(16, 114, 90);
+    color: antiquewhite;
+    width: 10%;
+    display: block;
+    font-size: 21px;
+    font-weight: 500;
+    border-radius: 17px;
+    margin-top: 20px;
+}
+@media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+    .myCards {
+        margin:0px 0px 48px 0px;
+        padding-top: 62px;
+    }
+  
+
+}
+
+
+@media only screen and (max-width: 500px) {
+
+    .myCards {
+        margin:0px 0px 28px 0px;
+        padding-top: 62px;
+    }
+}

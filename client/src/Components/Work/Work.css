@@ -1,0 +1,8 @@
+h4.wList{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(16, 114, 90);
+    border-radius: 10px;
+    color: antiquewhite;
+    text-align: initial;
+}

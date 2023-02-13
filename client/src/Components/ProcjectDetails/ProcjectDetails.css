@@ -1,0 +1,11 @@
+
+
+h4.pdList{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(16, 114, 90);
+    border-radius: 10px;
+    color: antiquewhite;
+    padding: 20px;
+    text-align: initial;
+}
