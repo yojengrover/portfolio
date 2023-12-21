@@ -86,7 +86,7 @@ const Home = () => {
           <div className='skillset'>
           <div className='skillHeading'>Skills</div>
           <div className='borderDiv'>
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+          <div class="row row-cols-3 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
         {data.map((tech) => (
           <div class="col mb-4">
