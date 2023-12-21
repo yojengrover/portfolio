@@ -16,9 +16,9 @@ const Header = (props) => {
 
 	return (
 		<nav className="navbar">
-			<div className="nav-logo">
-				<Link to="/">
-					<h2 className="nav-logo">Yojen Grover</h2>
+			<div>
+				<Link to="/" className="nav-logo">
+					<h2>Yojen Grover</h2>
 				</Link>
 			</div>
 			<ul className={open ? 'nav-links active' : 'nav-links'}>

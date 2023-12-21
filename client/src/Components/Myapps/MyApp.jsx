@@ -7,38 +7,44 @@ const MyApp = (props) => {
     
 
     const [inputDate, setInputDate] = useState('');
-    const [totalMileage, setTotalMileage] = useState(0);
-  
-    const calculateMileage = () => {
-      const startDate = new Date('2023-08-18');
-      const inputDateObject = new Date(inputDate);
-  
-      if (!isNaN(inputDateObject.getTime())) {
-        const daysDifference = Math.floor((inputDateObject - startDate) / (1000 * 60 * 60 * 24));
-        const weeksPassed = Math.floor(daysDifference / 7);
-        const mileage = weeksPassed * 250;
-  
-        setTotalMileage(mileage);
+  const [dailyAverageMileage, setDailyAverageMileage] = useState(0);
+  const [days, setDays] = useState(0);
+  const calculateMileage = () => {
+    const startDate = new Date('2023-08-18');
+    const inputDateObject = new Date(inputDate);
+
+    if (!isNaN(inputDateObject.getTime())) {
+      const daysDifference = Math.floor((inputDateObject - startDate) / (1000 * 60 * 60 * 24));
+      setDays(daysDifference);
+      const totalMileageGoal = 12000;
+
+      if (daysDifference >= 0) {
+        const dailyAverageMileage = (totalMileageGoal /365) * daysDifference;
+        setDailyAverageMileage(dailyAverageMileage);
       } else {
-        // Handle invalid date input
-        console.error('Invalid date input');
+        // Handle dates before the start date
+        console.error('Selected date is before the start date');
       }
-    };
-  
-    return (
-      <div>
-         <div><Header ns={4} /></div>
+    } else {
+      // Handle invalid date input
+      console.error('Invalid date input');
+    }
+  };
+
+  return (
+      <div><Header ns={4} />
          <div className='container'>
-        <label>
-          Enter Date:
-          <input type="date" value={inputDate} onChange={(e) => setInputDate(e.target.value)} />
-        </label>
-        <button onClick={calculateMileage}>Calculate Mileage</button>
-        {totalMileage > 0 && <p>Total Mileage: {totalMileage} miles</p>}
+         <div className='datePicker'>
+      <label>
+        Enter Date:
+        <input type="date" value={inputDate} onChange={(e) => setInputDate(e.target.value)} />
+      </label>
       </div>
-      </div>
-    );
-  
-}
+      <button onClick={calculateMileage}>Calculate Daily Average Mileage</button>
+      {dailyAverageMileage > 0 && <p>Daily Average Mileage: {dailyAverageMileage.toFixed(2)} miles, Days: {days}</p>}
+    </div>
+    </div>
+  );
+};
 
 export default MyApp;
