@@ -48,6 +48,8 @@ a.nav-link {
     align-items: center;
 	color: rgb(129, 129, 129);
     padding: 1.5rem;
+    justify-content: center;
+    
 }
 
 .nav-link-active-red {
@@ -59,6 +61,7 @@ a.nav-link {
 	padding: 1.5rem;
 	font-size: 1.5rem;
     text-decoration: none;
+    justify-content: center;
 }
 
 
@@ -76,9 +79,18 @@ a.nav-link {
 .my-apps-button {
     text-decoration: none;
     color: rgb(129, 129, 129);
-    font-size: 16px;
+    font-size: 2rem;
     font-weight: 600;
-    padding: 0 10px;
+    padding: 1.5em;
+}
+
+.myApps-hide{
+    display: none;
+}
+
+.my-apps-button:hover{
+    color: rgb(79, 223, 196);
+	text-decoration: none;
 }
 
 @media only screen and (max-width: 500px) {
@@ -97,6 +109,7 @@ a.nav-link {
         transition: 0.5s all;
         z-index: 100;
         background: rgb(255, 255, 255);
+       
     }
 
     .nav-links.active {
@@ -105,25 +118,41 @@ a.nav-link {
     }
 
     .nav-link-active-red {
-        padding-bottom: 5px;
-        padding: 0 30px 18px 30px;
+      
+        padding: 1.5rem;
     }
 
-    .nav-item {
-        padding: 0 0 5px 0;
-        border-bottom: 1px solid rgb(126, 126, 126);
-    }
+    
 
     .nav-icon {
         display: flex;
         padding-bottom: 40px;
     }
 
-    .nav-logo {
+    .nav-logo,.nav-buttons {
         padding: 15px;
     }
 
     .nav-logo h2 {
         margin: 0;
     }
+    .my-apps-button{
+        display: none;
+    }
+
+    .nav-icon {
+        display: flex;
+        padding-bottom: 40px;
+        flex-direction: column; /* Align the icon and "My Apps" vertically */
+    }
+
+    .nav-logo, .nav-buttons {
+        padding: 15px;
+        order: 1; /* Move nav-logo and nav-buttons to the top */
+    }
+    a.nav-link {
+        border-bottom: 1px solid rgb(126, 126, 126);
+    }
+    
+   
 }

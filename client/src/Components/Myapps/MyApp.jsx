@@ -1,14 +1,20 @@
-import React from 'react'
-import { useState } from 'react';
-import Header from '../Header/Header'
-import './MyApp.css'
+import React, { useState } from 'react';
+import Header from '../Header/Header';
+import './MyApp.css';
 
 const MyApp = (props) => {
-    
-
-    const [inputDate, setInputDate] = useState('');
+  const [inputDate, setInputDate] = useState('');
   const [dailyAverageMileage, setDailyAverageMileage] = useState(0);
   const [days, setDays] = useState(0);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [loginInput, setLoginInput] = useState('');
+
+  const handleLogin = () => {
+    if (loginInput === '123') {
+      setLoggedIn(true);
+    }
+  };
+
   const calculateMileage = () => {
     const startDate = new Date('2023-08-18');
     const inputDateObject = new Date(inputDate);
@@ -19,7 +25,7 @@ const MyApp = (props) => {
       const totalMileageGoal = 12000;
 
       if (daysDifference >= 0) {
-        const dailyAverageMileage = (totalMileageGoal /365) * daysDifference;
+        const dailyAverageMileage = (totalMileageGoal / 365) * daysDifference;
         setDailyAverageMileage(dailyAverageMileage);
       } else {
         // Handle dates before the start date
@@ -32,17 +38,27 @@ const MyApp = (props) => {
   };
 
   return (
-      <div><Header ns={4} />
-         <div className='container'>
-         <div className='datePicker'>
-      <label>
-        Enter Date:
-        <input type="date" value={inputDate} onChange={(e) => setInputDate(e.target.value)} />
-      </label>
+    <div>
+      <Header ns={4} />
+      <div className='container'>
+        {loggedIn ? (
+          <div className='datePicker'>
+            <label>
+              Enter Date:
+              <input type="date" value={inputDate} onChange={(e) => setInputDate(e.target.value)} />
+            </label>
+            <button onClick={calculateMileage}>Calculate Daily Average Mileage</button>
+            {dailyAverageMileage > 0 && <p>Daily Average Mileage: {dailyAverageMileage.toFixed(2)} miles, Days: {days}</p>}
+          </div>
+        ) : (
+          <div className='loginField'>
+            <label>
+              Enter Login: <input type="password" value={loginInput} onChange={(e) => setLoginInput(e.target.value)} />
+            </label>
+            <button  onClick={handleLogin}>Login</button>
+          </div>
+        )}
       </div>
-      <button onClick={calculateMileage}>Calculate Daily Average Mileage</button>
-      {dailyAverageMileage > 0 && <p>Daily Average Mileage: {dailyAverageMileage.toFixed(2)} miles, Days: {days}</p>}
-    </div>
     </div>
   );
 };

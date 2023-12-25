@@ -1,3 +1,53 @@
-.datePicker{
-    margin-top: 5.5em;
-}
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .datePicker {
+    margin-top: 20px;
+  }
+  
+  .datePicker label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .datePicker input {
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .datePicker button {
+    padding: 10px;
+    font-size: 1rem;
+    background-color:#06BC9B;;
+    border-radius: 15%;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .loginField {
+    margin-top: 20px;
+  }
+  
+  .loginField label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .loginField input {
+    padding: 8px;
+    font-size: 0.8em;
+  }
+  
+  .loginField button {
+    padding: 10px;
+    font-size: 1rem;
+    background-color:#06BC9B;;
+    border-radius: 25%;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 10px;
+  }

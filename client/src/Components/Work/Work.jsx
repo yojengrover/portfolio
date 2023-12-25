@@ -6,7 +6,7 @@ function Work() {
     <div><Header ns={2} />
     <div className='container'>
       <div className='row'>
-        <h2>Work Experience</h2>
+        <h2 className='worKEx'>Work Experience</h2>
         <h3>Cognizant Technology Solutions</h3>
         <h4 className='wList'>
             Programmer Analyst: Pearson Team

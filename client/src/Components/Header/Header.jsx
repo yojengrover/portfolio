@@ -37,12 +37,18 @@ const Header = (props) => {
 						Projects
 					</Link>
 				</li>
+				{open &&
+				<li className="nav-item">
+				<Link to="/myapps" className={navSelected === 3 ? "nav-link-active-red" : "nav-link"} onClick={closeMenu}>
+					My Apps
+				</Link>
+				</li>}
 			</ul>
 			<div className="nav-buttons">
 				<div onClick={handleClick} className="nav-icon">
 					{open ? <FiX /> : <FiMenu />}
 				</div>
-				<Link to="/myapps" className="my-apps-button">
+				<Link to="/myapps" className ='my-apps-button'>
 					My Apps
 				</Link>
 			</div>
