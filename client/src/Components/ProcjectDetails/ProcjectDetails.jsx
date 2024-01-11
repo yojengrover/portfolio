@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import './ProcjectDetails.css'
+import Footer from '../Footer/Footer';
 
 const ProcjectDetails = (props) => {
     const [id, setID] = useState(props.projectID);
@@ -48,7 +49,9 @@ const ProcjectDetails = (props) => {
         <h4 className='pdList'>Github Link: {projects[id].GitHub}</h4>   
         </div>
         </div>
-        </div></div>
+        </div>
+        <Footer position={false}/>
+        </div>
   )
 }
 

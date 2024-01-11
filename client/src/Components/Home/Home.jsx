@@ -11,6 +11,7 @@ import bootstrapImage from '../../Images/bootstrap.jpg'
 import javascriptImage from '../../Images/javascript.jpg'
 import graphqlImage from '../../Images/download.png'
 import './Home.css'
+import Footer from '../Footer/Footer'
 const Home = () => {
 
   const data = [
@@ -102,6 +103,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Footer position={false}/>
     </div>
   )
 }

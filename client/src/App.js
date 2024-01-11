@@ -27,7 +27,7 @@ function App() {
         <Route path="/myapps" element={<MyApp />} />
       </Routes>
       </Router>
-     <Footer />
+     
     </div>
   );
 }

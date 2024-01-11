@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Header from '../Header/Header'
 import ProcjectDetails from '../ProcjectDetails/ProcjectDetails';
 import './Projects.css';
+import Footer from '../Footer/Footer';
 function Projects() {
 
   const [check, setDetails] = useState(true);
@@ -65,6 +66,7 @@ function Projects() {
     
     { !check && <ProcjectDetails projectID = {id} backButton = {setDetails}/>}
     </div>
+    <Footer position={false}/>
     </div>
   )
 }

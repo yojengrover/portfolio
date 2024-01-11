@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import CaclculateMinutes from './CaclculateMinutes';
+import ScheduleBuilder from './ScheduleBuilder';
 import './MyApp.css';
 
 const MyApp = (props) => {
@@ -7,11 +10,15 @@ const MyApp = (props) => {
   const [dailyAverageMileage, setDailyAverageMileage] = useState(0);
   const [days, setDays] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedInC, setLoggedInC] = useState(false);
   const [loginInput, setLoginInput] = useState('');
 
   const handleLogin = () => {
     if (loginInput === '123') {
       setLoggedIn(true);
+    }
+    if (loginInput === '1235') {
+      setLoggedInC(true);
     }
   };
 
@@ -47,18 +54,19 @@ const MyApp = (props) => {
               Enter Date:
               <input type="date" value={inputDate} onChange={(e) => setInputDate(e.target.value)} />
             </label>
-            <button onClick={calculateMileage}>Calculate Daily Average Mileage</button>
+            <button onClick={calculateMileage}>Calculate</button>
             {dailyAverageMileage > 0 && <p>Daily Average Mileage: {dailyAverageMileage.toFixed(2)} miles, Days: {days}</p>}
           </div>
-        ) : (
+        ) : (loggedInC ? (<ScheduleBuilder/>):(
           <div className='loginField'>
             <label>
               Enter Login: <input type="password" value={loginInput} onChange={(e) => setLoginInput(e.target.value)} />
             </label>
             <button  onClick={handleLogin}>Login</button>
           </div>
-        )}
+        ))}
       </div>
+      <Footer position={true}/>
     </div>
   );
 };

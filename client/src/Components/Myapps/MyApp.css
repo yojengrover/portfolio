@@ -9,8 +9,11 @@
   }
   
   .datePicker label {
-    display: block;
-    margin-bottom: 10px;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+    align-items:center;
   }
   
   .datePicker input {

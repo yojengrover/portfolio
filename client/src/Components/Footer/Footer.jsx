@@ -1,8 +1,8 @@
 import React from 'react'
 import './Footer.css';
-function Footer() {
+function Footer(props) {
   return (
-    <footer className='footer'>
+    <footer className={props.position?"footer":"footer"}>
     <div class="container">       
     <div class="row mb-5">
       <div class="col-md-4">

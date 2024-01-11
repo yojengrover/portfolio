@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../Header/Header'
+import Footer from '../Footer/Footer'
 import './Work.css'
 function Work() {
   return (
@@ -25,6 +26,7 @@ function Work() {
         </h4>
       </div>
     </div>
+    <Footer position={false}/>
     </div>
   )
 }
