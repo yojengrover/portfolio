@@ -1,148 +1,257 @@
-
-
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import './ScheduleBuilder.css';
 
 const ScheduleBuilder = () => {
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const hoursOfDay = Array.from({ length: 12 }, (_, index) => 7 + index);
+  const hoursOfDay = Array.from({ length: 18 }, (_, index) => 7 + index);
 
-  const [schedulesYojen, setSchedulesYojen] = useState(Array.from({ length: 7 }, () => Array(12).fill({ text: '', color: 'grey' })));
-  const [schedulesShiven, setSchedulesShiven] = useState(Array.from({ length: 7 }, () => Array(12).fill({ text: '', color: 'grey' })));
-
-  const [selectedCellsYojen, setSelectedCellsYojen] = useState([]);
-  const [selectedCellsShiven, setSelectedCellsShiven] = useState([]);
-
-  const [selectedOptionYojen, setSelectedOptionYojen] = useState('Class Work');
-  const [selectedOptionShiven, setSelectedOptionShiven] = useState('Class Work');
-
-  const updateSchedule = (dayIndex, hourIndex, person, value, color) => {
-    const newSchedules = person === 'Yojen' ? [...schedulesYojen] : [...schedulesShiven];
-    newSchedules[dayIndex][hourIndex] = { text: value, color };
-    person === 'Yojen' ? setSchedulesYojen(newSchedules) : setSchedulesShiven(newSchedules);
+  const createScheduleArray = () => {
+    return Array.from({ length: hoursOfDay.length * 7 }, (_, index) => {
+      const hourIndex = Math.floor(index / 7); // Determine the corresponding hour index
+      const colIndex = index % 7; // Determine the column index within the day
+  
+      return {
+        indexNumber: index,
+        type: 'NA',
+        description: '',
+        color: 'grey',
+        hour: hoursOfDay[hourIndex], // Include the hour information
+        dayOfWeek: daysOfWeek[colIndex], // Include the day of the week information
+      };
+    });
   };
 
-  const handleSelection = (dayIndex, person) => {
-    const selectedCells = person === 'Yojen' ? selectedCellsYojen : selectedCellsShiven;
+  const [yojenSchedule, setYojenSchedule] = useState(createScheduleArray());
+  const [shivenSchedule, setShivenSchedule] = useState(createScheduleArray());
+  const [selectedCellDescription, setSelectedCellDescription] = useState('');
+  const [selectedCellIndex, setSelectedCellIndex] = useState(null);
+  const [recID, setRecID] = useState(null);
+  const descriptionInputRef = useRef();
+  const selectChangedFromNA = useRef(false);
 
-    if (selectedCells.length === 0) {
-      selectedCells.push({ day: dayIndex, hour: null });
-    } else if (selectedCells.length === 1) {
-      if (selectedCells[0].day === dayIndex) {
-        // If selecting the same day, toggle the selection
-        selectedCells.pop();
-      } else {
-        // If selecting a different day, update the hour index
-        selectedCells[0].hour = dayIndex;
+  const handleCellClick = (person, index) => {
+    const schedule = person === 'Yojen' ? yojenSchedule : shivenSchedule;
+    const selectedCell = schedule[index];
+
+    setSelectedCellIndex(index);
+    setSelectedCellDescription(selectedCell.description);
+
+    // Focus on the description input
+    if (descriptionInputRef.current && selectChangedFromNA.current) {
+      descriptionInputRef.current.focus();
+    }
+    selectChangedFromNA.current = false;
+  };
+
+  useEffect(() => {
+    // Fetch schedule data from the server when the component mounts
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/schedule');
+        const scheduleData = response.data;
+        console.log(scheduleData[0]);
+        
+        if (scheduleData && scheduleData.length === 1) {
+          // Update Yojen's Schedule and Shiven's Schedule arrays with data from the server
+          setRecID(scheduleData[0]._id)
+          setYojenSchedule(scheduleData[0].yojenSchedule);
+          setShivenSchedule(scheduleData[0].shivenSchedule);
+        }
+      } catch (error) {
+        console.error('Error fetching schedule data:', error);
       }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleSavetoDB = async () => {
+    try {
+      const response = await axios.post('http://localhost:8000/post/schedule', {
+
+      yojenSchedule,
+        shivenSchedule,
+      });
+
+      console.log('Schedule saved successfully:', response.data);
+    } catch (error) {
+        console.log(error);
+      console.error('Error saving schedule:', error.message);
+    }
+  };
+
+  const handleTypeChange = (person, index, newType) => {
+    const schedule = person === 'Yojen' ? yojenSchedule : shivenSchedule;
+    const setSchedule = person === 'Yojen' ? setYojenSchedule : setShivenSchedule;
+
+    const updatedSchedule = [...schedule];
+    const selectedCell = updatedSchedule[index];
+
+    if (selectedCell.type === 'NA' && newType !== 'NA') {
+      // Selection changed from 'NA', set the flag
+      selectChangedFromNA.current = true;
     }
 
-    person === 'Yojen' ? setSelectedCellsYojen([...selectedCells]) : setSelectedCellsShiven([...selectedCells]);
+    selectedCell.type = newType;
+
+    // Update color based on the selected type
+    switch (newType) {
+      case 'NA':
+        selectedCell.color = 'grey';
+        break;
+      case 'class':
+        selectedCell.color = 'red';
+        break;
+      case 'work':
+        selectedCell.color = 'yellow';
+        break;
+      case 'free':
+        selectedCell.color = 'green';
+        break;
+      default:
+        break;
+    }
+
+    setSchedule(updatedSchedule);
+
+    // Focus on the description input after changing the type
+    if (descriptionInputRef.current && selectChangedFromNA.current) {
+      descriptionInputRef.current.focus();
+    }
   };
 
-  const handleOptionChange = (person, option) => {
-    person === 'Yojen' ? setSelectedOptionYojen(option) : setSelectedOptionShiven(option);
+  const handleDescriptionChange = (e) => {
+    setSelectedCellDescription(e.target.value);
   };
+
+  const handleSaveClick = () => {
+    if (selectedCellIndex !== null) {
+      const updatedYojenSchedule = [...yojenSchedule];
+      const updatedShivenSchedule = [...shivenSchedule];
+
+      if (selectedCellIndex >= 0 && selectedCellIndex < 84) {
+        updatedYojenSchedule[selectedCellIndex].description = selectedCellDescription;
+        updatedShivenSchedule[selectedCellIndex].description = selectedCellDescription;
+      }
+
+      setYojenSchedule(updatedYojenSchedule);
+      setShivenSchedule(updatedShivenSchedule);
+
+      // Clear selection
+      setSelectedCellIndex(null);
+    }
+  };
+
+  useEffect(() => {
+    // Focus on the description input when a cell is clicked
+    if (descriptionInputRef.current) {
+      descriptionInputRef.current.focus();
+    }
+  }, [selectedCellIndex]);
 
   return (
-    <div className="schedule-builder-container">
-      <div className="schedule-table">
-        <h3>Yojen's Schedule</h3>
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              {daysOfWeek.map((day, index) => (
-                <th key={index}>{day}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {hoursOfDay.map((hour) => (
-              <tr key={hour}>
-                <td>{`${hour}:00`}</td>
-                {daysOfWeek.map((day, dayIndex) => (
-                  <td
-                    key={`${day}-${hour}`}
-                    onClick={() => handleSelection(dayIndex, 'Yojen')}
-                    className={selectedCellsYojen.some((cell) => cell.day === dayIndex) ? 'selected' : ''}
-                    style={{ backgroundColor: schedulesYojen[dayIndex][hour - 7].color }}
-                  >
-                    <select
-                      value={selectedOptionYojen}
-                      onChange={(e) => {
-                        handleOptionChange('Yojen', e.target.value);
-                        const color =
-                          e.target.value === 'Class Work' ? 'red' : e.target.value === 'Family' ? 'yellow' : 'green';
-                        updateSchedule(dayIndex, hour - 7, 'Yojen', '', color);
-                      }}
-                      className="schedule-dropdown"
-                    >
-                      <option value="Class Work">Class Work</option>
-                      <option value="Family">Family</option>
-                      <option value="Free Time">Free Time</option>
-                    </select>
-                    <input
-                      type="text"
-                      value={schedulesYojen[dayIndex][hour - 7].text}
-                      onChange={(e) => updateSchedule(dayIndex, hour - 7, 'Yojen', e.target.value, '')}
-                    />
-                  </td>
+    <div className="schedule-container">
+      <div className="description-container">
+        <label><h4>Description: </h4></label>
+        <input
+         className='descriptionInput'
+          type="text"
+          value={selectedCellDescription}
+          onChange={handleDescriptionChange}
+          ref={descriptionInputRef}
+          autoFocus={true}
+        />
+        <button className='saveButton' onClick={handleSaveClick}>Save</button>
+      </div>
+      <div className='mytables'>
+        <div className="schedule">
+          <h3>Yojen's Schedule</h3>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                {daysOfWeek.map((day, index) => (
+                  <th key={index}>{day}</th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {hoursOfDay.map((hour) => (
+                <tr key={hour}>
+                  <td>{`${hour}:00`}</td>
+                  {Array.from({ length: 7 }).map((_, colIndex) => {
+                    const index = (hour - 7) * 7 + colIndex;
+                    const cell = yojenSchedule[index];
+                    return (
+                      <td
+                        key={colIndex}
+                        onClick={() => handleCellClick('Yojen', index)}
+                        style={{ backgroundColor: cell.color, outline: selectedCellIndex === index ? '2px solid #000' : 'none' }}
+                      >
+                        <select
+                          value={cell.type}
+                          onChange={(e) => handleTypeChange('Yojen', index, e.target.value)}
+                          className="schedule-dropdown"
+                        >
+                          <option value="NA">NA</option>
+                          <option value="class">Class</option>
+                          <option value="work">Work</option>
+                          <option value="free">Free</option>
+                        </select>
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      <div className="schedule-table">
-        <h3>Shiven's Schedule</h3>
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              {daysOfWeek.map((day, index) => (
-                <th key={index}>{day}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {hoursOfDay.map((hour) => (
-              <tr key={hour}>
-                <td>{`${hour}:00`}</td>
-                {daysOfWeek.map((day, dayIndex) => (
-                  <td
-                    key={`${day}-${hour}`}
-                    onClick={() => handleSelection(dayIndex, 'Shiven')}
-                    className={selectedCellsShiven.some((cell) => cell.day === dayIndex) ? 'selected' : ''}
-                    style={{ backgroundColor: schedulesShiven[dayIndex][hour - 7].color }}
-                  >
-                    <select
-                      value={selectedOptionShiven}
-                      onChange={(e) => {
-                        handleOptionChange('Shiven', e.target.value);
-                        const color =
-                          e.target.value === 'Class Work' ? 'red' : e.target.value === 'Family' ? 'yellow' : 'green';
-                        updateSchedule(dayIndex, hour - 7, 'Shiven', '', color);
-                      }}
-                      className="schedule-dropdown"
-                    >
-                      <option value="Class Work">Class Work</option>
-                      <option value="Family">Family</option>
-                      <option value="Free Time">Free Time</option>
-                    </select>
-                    <input
-                      type="text"
-                      value={schedulesShiven[dayIndex][hour - 7].text}
-                      onChange={(e) => updateSchedule(dayIndex, hour - 7, 'Shiven', e.target.value, '')}
-                    />
-                  </td>
+        <div className="schedule">
+          <h3>Shiven's Schedule</h3>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                {daysOfWeek.map((day, index) => (
+                  <th key={index}>{day}</th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {hoursOfDay.map((hour) => (
+                <tr key={hour}>
+                  <td>{`${hour}:00`}</td>
+                  {Array.from({ length: 7 }).map((_, colIndex) => {
+                    const index = (hour - 7) * 7 + colIndex;
+                    const cell = shivenSchedule[index];
+                    return (
+                      <td
+                        key={colIndex}
+                        onClick={() => handleCellClick('Shiven', index)}
+                        style={{ backgroundColor: cell.color, outline: selectedCellIndex === index ? '2px solid #000' : 'none' }}
+                      >
+                        <select
+                          value={cell.type}
+                          onChange={(e) => handleTypeChange('Shiven', index, e.target.value)}
+                          className="schedule-dropdown"
+                        >
+                          <option value="NA">NA</option>
+                          <option value="class">Class</option>
+                          <option value="work">Work</option>
+                          <option value="free">Free</option>
+                        </select>
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
+      <button onClick={handleSavetoDB}>save To DB</button>
     </div>
   );
 };

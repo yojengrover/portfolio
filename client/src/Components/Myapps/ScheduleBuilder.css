@@ -1,63 +1,54 @@
-
-
-.schedule-builder-container {
-  display: flex;
-  justify-content: space-around;
-  max-width: 1200px;
-  margin: 20px auto;
-}
-
-.schedule-table {
-  width: 45%;
-}
-
-/* ScheduleBuilder.css */
-
-.schedule-dropdown {
-    width: 100%;
-    margin-top: 5px;
-    font-size: 12px;
-    padding: 5px;
+.schedule-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
   }
   
+  .description-container {
+    margin-bottom: 10px;
+    padding: 1rem;
+  }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
+  .descriptionInput {
+    width: 20rem;
+    padding: 10px;
+  }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
-
-th {
-  background-color: #f2f2f2;
-}
-
-input {
-  width: 100%;
-}
-
-.selected {
-  background-color: #4caf50;
-  color: #fff;
-}
-
-button {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #4caf50;
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #45a049;
-}
+  .saveButton {
+    border-radius: 10px;
+    /* padding: 1em; */
+    margin: 10px;
+  }
+  
+  .schedule {
+    margin: 1rem;
+    display: inline-block;
+    padding: 10px;
+    width: fit-content;
+  }
+  
+  .my-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table-header,
+  .table-cell {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .schedule-dropdown {
+    width: 1rempx;
+  }
+  
+  /* Add any additional styling based on your preferences */
+  
+  .mytables {
+    display: flex;
+  }
+  
+  /* Add any additional styling based on your preferences */
+  
