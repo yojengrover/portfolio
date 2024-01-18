@@ -126,6 +126,14 @@ const ScheduleBuilder = () => {
     fetchData();
   }, []);
 
+  const ConfirmationPopup = () => {
+    return (
+      <div className="confirmation-popup">
+        <p>Data saved successfully!</p>
+      </div>
+    );
+  };
+
   const handleSavetoDB = async () => {
     try {
       const response = await axios.post('http://localhost:8000/post/schedule', {
@@ -222,7 +230,8 @@ const ScheduleBuilder = () => {
 
 
   return (
-    <div className={`schedule-container${isDataSaved ? ' data-saved' : ''}`}>
+    <div className="schedule-container">
+        {isDataSaved && <ConfirmationPopup />}
    { !istable? (<div className='scheduleTables'>
       <div className="description-container">
         <label><h4>Description: </h4></label>
@@ -328,7 +337,7 @@ const ScheduleBuilder = () => {
           </table>
         </div>
       </div>
-      <button className='saveButton' onClick={handleSavetoDB}>save To DB</button>
+      <button className='saveButton' onClick={handleSavetoDB}>Save To DB</button>
       <button className='saveButton' onClick={generateCommonFreeTable}>Generate Schedule Table</button>
       </div>):(
       <div className=''>

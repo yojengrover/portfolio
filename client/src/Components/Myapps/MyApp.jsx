@@ -52,7 +52,7 @@ const MyApp = (props) => {
           <div className='datePicker'>
             <label>
               Enter Date:
-              <input type="date" value={inputDate} onChange={(e) => setInputDate(e.target.value)} />
+              <input className='myInputs' type="date" value={inputDate} onChange={(e) => setInputDate(e.target.value)} />
             </label>
             <button onClick={calculateMileage}>Calculate</button>
             {dailyAverageMileage > 0 && <p>Daily Average Mileage: {dailyAverageMileage.toFixed(2)} miles, Days: {days}</p>}
