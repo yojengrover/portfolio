@@ -3,8 +3,12 @@
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
+    transition: background-color 2s ease-in-out;
   }
   
+  .schedule-container.data-saved {
+    background-color: #7fff7f; /* Change to your desired confirmation color */
+  }
   .description-container {
     margin-bottom: 10px;
     padding: 1rem;

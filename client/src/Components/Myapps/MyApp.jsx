@@ -60,7 +60,7 @@ const MyApp = (props) => {
         ) : (loggedInC ? (<ScheduleBuilder/>):(
           <div className='loginField'>
             <label>
-              Enter Login: <input type="password" value={loginInput} onChange={(e) => setLoginInput(e.target.value)} />
+              Enter Login: <input className='myInputs' type="password" value={loginInput} onChange={(e) => setLoginInput(e.target.value)} />
             </label>
             <button  onClick={handleLogin}>Login</button>
           </div>

@@ -78,6 +78,7 @@ const ScheduleBuilder = () => {
     const [istable, setTable] = useState(false);
     const descriptionInputRef = useRef();
     const selectChangedFromNA = useRef(false);
+    const [isDataSaved, setDataSaved] = useState(false);
   
     const handleTable = () => {
       setTable(!istable);
@@ -92,10 +93,6 @@ const ScheduleBuilder = () => {
     setSelectedCellDescription(selectedCell.description);
 
     // Focus on the description input
-    if (descriptionInputRef.current && selectChangedFromNA.current) {
-      descriptionInputRef.current.focus();
-    }
-    selectChangedFromNA.current = false;
   };
 
   
@@ -132,14 +129,20 @@ const ScheduleBuilder = () => {
   const handleSavetoDB = async () => {
     try {
       const response = await axios.post('http://localhost:8000/post/schedule', {
-
-      yojenSchedule,
+        yojenSchedule,
         shivenSchedule,
       });
 
       console.log('Schedule saved successfully:', response.data);
+
+      // Set the state to trigger the animation
+      setDataSaved(true);
+
+      // Reset the state after 2 seconds to stop the animation
+      setTimeout(() => {
+        setDataSaved(false);
+      }, 2000);
     } catch (error) {
-        console.log(error);
       console.error('Error saving schedule:', error.message);
     }
   };
@@ -188,6 +191,14 @@ const ScheduleBuilder = () => {
     setSelectedCellDescription(e.target.value);
   };
 
+  const [isDescriptionEnabled, setDescriptionEnabled] = useState(true);
+
+  // ... (existing code)
+
+  const handleEnableDescription = () => {
+    setDescriptionEnabled(true);
+  };
+
   const handleSaveClick = () => {
     if (selectedCellIndex !== null) {
       const updatedYojenSchedule = [...yojenSchedule];
@@ -201,20 +212,17 @@ const ScheduleBuilder = () => {
       setYojenSchedule(updatedYojenSchedule);
       setShivenSchedule(updatedShivenSchedule);
 
-      // Clear selection
+      // Clear selection and disable description input if description is not null
       setSelectedCellIndex(null);
+      if (selectedCellDescription !== null) {
+        setDescriptionEnabled(false);
+      }
     }
   };
 
-  useEffect(() => {
-    // Focus on the description input when a cell is clicked
-    if (descriptionInputRef.current) {
-      descriptionInputRef.current.focus();
-    }
-  }, [selectedCellIndex]);
 
   return (
-    <div className="schedule-container">
+    <div className={`schedule-container${isDataSaved ? ' data-saved' : ''}`}>
    { !istable? (<div className='scheduleTables'>
       <div className="description-container">
         <label><h4>Description: </h4></label>
@@ -224,8 +232,13 @@ const ScheduleBuilder = () => {
           value={selectedCellDescription}
           onChange={handleDescriptionChange}
           ref={descriptionInputRef}
-          autoFocus={true}
-        />
+          disabled={selectedCellDescription !== null && !isDescriptionEnabled}
+            />
+            {selectedCellDescription !== null && !isDescriptionEnabled && (
+              <button className='saveButton' onClick={handleEnableDescription}>
+                Enable
+              </button>
+            )}
         <button className='saveButton' onClick={handleSaveClick}>Save</button>
       </div>
       <div className='mytables'>

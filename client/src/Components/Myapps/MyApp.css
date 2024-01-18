@@ -7,6 +7,10 @@
   .datePicker {
     margin-top: 20px;
   }
+
+  .myInputs {
+    width: 15%;
+  }
   
   .datePicker label {
     justify-content: space-between;
