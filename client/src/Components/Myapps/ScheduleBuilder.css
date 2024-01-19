@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?  family=Montserrat:ital,wght@0,100;0,200;1,100;1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 .schedule-container {
     display: flex;
@@ -61,7 +61,7 @@
     margin: 1rem;
     display: inline-block;
     padding: 10px;
-    width: fit-content;
+    width: 86%;
   }
   
   .my-table {
@@ -74,17 +74,26 @@
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
+    background-color: #654a4a;
   }
   
-  .schedule-dropdown {
-    width: 1rempx;
-  }
+  
   
   /* Add any additional styling based on your preferences */
   
   .mytables {
     display: flex;
-  }
+    justify-content: center;
+}
+
+.exCoButton {
+    all: inherit;
+    padding: 11px;
+}
+
+.exCoButton:hover{
+    background-color: #c6f5ec;
+}
   
   /* Add any additional styling based on your preferences */
   

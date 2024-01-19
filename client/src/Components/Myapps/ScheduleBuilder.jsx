@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './ScheduleBuilder.css';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 
 const ScheduleBuilder = () => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -105,6 +106,17 @@ const ScheduleBuilder = () => {
     handleTable();
 }
 
+const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
+  const [isShivenTableExpanded, setShivenTableExpanded] = useState(false);
+
+  const toggleYojenTable = () => {
+    setYojenTableExpanded(!isYojenTableExpanded);
+  };
+
+  const toggleShivenTable = () => {
+    setShivenTableExpanded(!isShivenTableExpanded);
+  };
+
 
 
   useEffect(() => {
@@ -176,16 +188,16 @@ const ScheduleBuilder = () => {
         selectedCell.color = 'grey';
         break;
       case 'class':
-        selectedCell.color = 'red';
+        selectedCell.color = '#fe4c4c';
         break;
       case 'work':
-        selectedCell.color = 'yellow';
+        selectedCell.color = '#f4fd48';
         break;
       case 'free':
-        selectedCell.color = 'green';
+        selectedCell.color = '#22f565';
         break;
         case 'gym':
-        selectedCell.color = 'brown';
+        selectedCell.color = '#654a4a';
         break;
       default:
         break;
@@ -254,10 +266,17 @@ const ScheduleBuilder = () => {
             )}
         <button className='saveButton' onClick={handleSaveClick}>Save</button>
       </div>
-      <div className='mytables'>
+      <div>
         <div className="schedule">
+        <div className='mytables'>
           <h3>Yojen's Schedule</h3>
-          <table>
+          <button className='exCoButton'  onClick={toggleYojenTable}>{isYojenTableExpanded ? (
+          <FontAwesomeIcon icon={faChevronUp} />
+        ) : (
+          <FontAwesomeIcon icon={faChevronDown} />
+        )}</button>
+          </div>
+          {isYojenTableExpanded && (<table>
             <thead>
               <tr>
                 <th></th>
@@ -296,12 +315,19 @@ const ScheduleBuilder = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table>)}
         </div>
 
         <div className="schedule">
+        <div className='mytables'>
           <h3>Shiven's Schedule</h3>
-          <table>
+          <button className='exCoButton' onClick={toggleShivenTable}>{isShivenTableExpanded ? (
+          <FontAwesomeIcon icon={faChevronUp} />
+        ) : (
+          <FontAwesomeIcon icon={faChevronDown} />
+        )}</button>
+          </div>
+          {isShivenTableExpanded && (<table>
             <thead>
               <tr>
                 <th></th>
@@ -340,7 +366,7 @@ const ScheduleBuilder = () => {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table>)}
         </div>
       </div>
       <button className='saveButton' onClick={handleSavetoDB}>Save To DB</button>
