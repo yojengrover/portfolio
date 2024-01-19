@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import './ScheduleBuilder.css';
 
+
 const ScheduleBuilder = () => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const hoursOfDay = Array.from({ length: 18 }, (_, index) => 7 + index);
@@ -183,6 +184,9 @@ const ScheduleBuilder = () => {
       case 'free':
         selectedCell.color = 'green';
         break;
+        case 'gym':
+        selectedCell.color = 'brown';
+        break;
       default:
         break;
     }
@@ -284,6 +288,7 @@ const ScheduleBuilder = () => {
                           <option value="class">Class</option>
                           <option value="work">Work</option>
                           <option value="free">Free</option>
+                          <option value="gym">Gym</option> 
                         </select>
                       </td>
                     );
@@ -327,6 +332,7 @@ const ScheduleBuilder = () => {
                           <option value="class">Class</option>
                           <option value="work">Work</option>
                           <option value="free">Free</option>
+                          <option value="gym">Gym</option> 
                         </select>
                       </td>
                     );
