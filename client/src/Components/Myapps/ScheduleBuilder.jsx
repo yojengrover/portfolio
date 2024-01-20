@@ -123,7 +123,7 @@ const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
     // Fetch schedule data from the server when the component mounts
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/schedule');
+        const response = await axios.get('https://portfolio-backend-jyvg.onrender.com/api/schedule');
         const scheduleData = response.data;
         if (scheduleData && scheduleData.length === 1) {
           // Update Yojen's Schedule and Shiven's Schedule arrays with data from the server
