@@ -219,6 +219,31 @@ const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
 
   // ... (existing code)
 
+  const handleConvertNAToFree = () => {
+    // Create a copy of Yojen's Schedule and Shiven's Schedule
+    const updatedYojenSchedule = [...yojenSchedule];
+    const updatedShivenSchedule = [...shivenSchedule];
+
+    // Loop through each cell and change 'NA' cells to 'free'
+    updatedYojenSchedule.forEach((cell) => {
+      if (cell.type === 'NA') {
+        cell.type = 'free';
+        cell.color = '#22f565'; // Change color if needed
+      }
+    });
+
+    updatedShivenSchedule.forEach((cell) => {
+      if (cell.type === 'NA') {
+        cell.type = 'free';
+        cell.color = '#22f565'; // Change color if needed
+      }
+    });
+
+    // Update the state with the modified schedules
+    setYojenSchedule(updatedYojenSchedule);
+    setShivenSchedule(updatedShivenSchedule);
+  };
+
   const handleEnableDescription = () => {
     setDescriptionEnabled(true);
   };
@@ -371,6 +396,7 @@ const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
       </div>
       <button className='saveButton' onClick={handleSavetoDB}>Save To DB</button>
       <button className='saveButton' onClick={generateCommonFreeTable}>Generate Schedule Table</button>
+      <button className="saveButton" onClick={handleConvertNAToFree}>Convert NA to Free</button>
       </div>):(
       <div className=''>
         <button className='saveButton' onClick={handleTable}>Back</button>
