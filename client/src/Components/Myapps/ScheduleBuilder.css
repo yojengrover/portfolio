@@ -96,4 +96,57 @@
 }
   
   /* Add any additional styling based on your preferences */
+  @media only screen and (max-width: 600px) {
+    .description-container {
+      margin-bottom: 10px;
+      padding: 1rem;
+    }
   
+    .descriptionInput {
+      width: 100%; /* Full width on smaller screens */
+      padding: 10px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+  
+    .saveButton {
+      border-radius: 10px;
+      background-color: #06BC9B;
+      font-weight: 700;
+      margin: 10px;
+    }
+  
+    .schedule {
+      margin: 1rem;
+      display: inline-block;
+      padding: 10px;
+      width: 100%; /* Full width on smaller screens */
+    }
+  
+    .my-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+  
+    .table-header,
+    .table-cell {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+      background-color: #654a4a;
+    }
+  
+    .mytables {
+      display: flex;
+      justify-content: center;
+    }
+  
+    .exCoButton {
+      all: inherit;
+      padding: 11px;
+    }
+  
+    .exCoButton:hover {
+      background-color: #c6f5ec;
+    }
+  }
