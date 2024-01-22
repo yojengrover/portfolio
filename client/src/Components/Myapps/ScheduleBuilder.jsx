@@ -206,9 +206,9 @@ const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
     setSchedule(updatedSchedule);
 
     // Focus on the description input after changing the type
-    if (descriptionInputRef.current && selectChangedFromNA.current) {
-      descriptionInputRef.current.focus();
-    }
+    // if (descriptionInputRef.current && selectChangedFromNA.current) {
+    //   descriptionInputRef.current.focus();
+    // }
   };
 
   const handleDescriptionChange = (e) => {
