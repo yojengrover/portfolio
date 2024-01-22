@@ -149,7 +149,7 @@ const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
 
   const handleSavetoDB = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/post/schedule', {
+      const response = await axios.post('https://portfolio-backend-jyvg.onrender.com/post/schedule', {
         yojenSchedule,
         shivenSchedule,
       });
