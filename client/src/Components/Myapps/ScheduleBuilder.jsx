@@ -3,6 +3,8 @@ import axios from 'axios';
 import './ScheduleBuilder.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const ScheduleBuilder = () => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -78,6 +80,7 @@ const ScheduleBuilder = () => {
     const [selectedCellDescription, setSelectedCellDescription] = useState('');
     const [selectedCellIndex, setSelectedCellIndex] = useState(null);
     const [istable, setTable] = useState(false);
+    const [dataFetched, setdataFetched] = useState(false);
     const descriptionInputRef = useRef();
     const selectChangedFromNA = useRef(false);
     const [isDataSaved, setDataSaved] = useState(false);
@@ -301,7 +304,7 @@ const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
           <FontAwesomeIcon icon={faChevronDown} />
         )}</button>
           </div>
-          {isYojenTableExpanded && (<table>
+          {(isYojenTableExpanded && dataFetched )? (<table>
             <thead>
               <tr>
                 <th></th>
@@ -340,7 +343,9 @@ const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
                 </tr>
               ))}
             </tbody>
-          </table>)}
+          </table>): (<Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+      <LinearProgress color="success" />
+      </Stack>)}
         </div>
 
         <div className="schedule">
@@ -352,7 +357,7 @@ const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
           <FontAwesomeIcon icon={faChevronDown} />
         )}</button>
           </div>
-          {isShivenTableExpanded && (<table>
+          {(isShivenTableExpanded && dataFetched )? (<table>
             <thead>
               <tr>
                 <th></th>
@@ -391,7 +396,9 @@ const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
                 </tr>
               ))}
             </tbody>
-          </table>)}
+          </table>):(<Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+      <LinearProgress color="success" />
+      </Stack>)}
         </div>
       </div>
       <button className='saveButton' onClick={handleSavetoDB}>Save To DB</button>

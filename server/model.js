@@ -4,7 +4,7 @@ const scheduleSchema = new mongoose.Schema({
     yojenSchedule: [
         {
           indexNumber: { type: Number, required: true },
-          type: { type: String, enum: ['NA', 'class', 'work', 'free'], default: 'NA' },
+          type: { type: String, default: 'NA' },
           description: { type: String, default: '' },
           color: { type: String, default: 'grey' },
         }
@@ -12,7 +12,7 @@ const scheduleSchema = new mongoose.Schema({
       shivenSchedule: [
         {
           indexNumber: { type: Number, required: true },
-          type: { type: String, enum: ['NA', 'class', 'work', 'free'], default: 'NA' },
+          type: { type: String, default: 'NA' },
           description: { type: String, default: '' },
           color: { type: String, default: 'grey' },
         }
