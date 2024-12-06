@@ -8,6 +8,7 @@ import Work from './Components/Work/Work'
 import { Routes, Route } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import MyApp from './Components/Myapps/MyApp';
+import PrivateMessage from './Components/Messages/PrivateMessage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/work" element={<Work />} />
         <Route path="/myapps" element={<MyApp />} />
+        <Route path="/message" element={<PrivateMessage/>}/>
       </Routes>
       </Router>
      

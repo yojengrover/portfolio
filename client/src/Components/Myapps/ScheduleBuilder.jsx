@@ -3,8 +3,7 @@ import axios from 'axios';
 import './ScheduleBuilder.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
-import Stack from '@mui/material/Stack';
-import LinearProgress from '@mui/material/LinearProgress';
+
 
 const ScheduleBuilder = () => {
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -343,9 +342,9 @@ const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
                 </tr>
               ))}
             </tbody>
-          </table>): (<Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+          /* </table>): (<div></div> )}{/*<Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
       <LinearProgress color="success" />
-      </Stack>)}
+      </Stack>)} */}
         </div>
 
         <div className="schedule">
@@ -396,9 +395,9 @@ const [isYojenTableExpanded, setYojenTableExpanded] = useState(false);
                 </tr>
               ))}
             </tbody>
-          </table>):(<Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+          </table>):(<div></div>/*<Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
       <LinearProgress color="success" />
-      </Stack>)}
+      </Stack>*/)}
         </div>
       </div>
       <button className='saveButton' onClick={handleSavetoDB}>Save To DB</button>
